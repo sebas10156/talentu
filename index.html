@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Talentu</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div class="app_flex">
+      <div class="app_flex__right">
+        <div class="content_add">
+          <p><b>NUEVO USUARIO</b></p>
+
+          <form @submit.prevent="createPerson(newPerson)">
+            <input type="text" placeholder="Email" v-model="newPerson.email">
+            <input type="text" placeholder="Nombre(s)" v-model="newPerson.first_name">
+            <input type="text" placeholder="Apellido(s)" v-model="newPerson.last_name">
+            <input type="date" v-model="newPerson.birthday">
+            <button type="submit">Agregar</button>
+          </form>
+
+          <div :class="['alertContent', 'alertContent--' + isSuccess.type]" v-if="isSuccess.type">{{ isSuccess.message }}</div>
+        </div>
+      </div>
+
+      <div class="app_flex__left">
+        <table>
+          <thead>
+            <tr>
+              <td>Id</td>
+              <td>Nombre</td>
+              <td>Edad</td>
+              <td>Email</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="person in people" :key="person.id">
+              <td>{{ person.id }}</td>
+              <td>{{ person.first_name }} {{ person.last_name }}</td>
+              <td>{{ person.birthday ? getAge(person.birthday) : '-' }}</td>
+              <td>{{ person.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script type="module" src="script.js"></script>
+
+</html>
